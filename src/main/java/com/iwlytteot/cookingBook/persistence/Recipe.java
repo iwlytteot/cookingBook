@@ -1,5 +1,6 @@
 package com.iwlytteot.cookingBook.persistence;
 
+import com.iwlytteot.cookingBook.model.RecipeBase;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,23 +15,11 @@ import java.util.Map;
 @Entity
 @Getter
 @Setter
-public class Recipe {
-
+public class Recipe extends RecipeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    private String name;
-
-    //private User author;
-
-    private String description;
-
-    @Embedded
-    private TimeComplexity timeComplexity;
-
-    private int portion = 1;
 
     @ElementCollection
     @CollectionTable(name = "recipe_and_ingredients",
