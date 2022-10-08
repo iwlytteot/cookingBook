@@ -6,11 +6,13 @@ import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.persistence.Recipe;
 import com.iwlytteot.cookingBook.repository.IngredientRepository;
 import com.iwlytteot.cookingBook.repository.RecipeRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class RecipeController {
@@ -26,13 +28,9 @@ public class RecipeController {
      * Adds new recipe with ingredients
      * @param input User's input
      */
-    @PostMapping("/recipe/add")
+    @PostMapping("/recipe")
     public final void addRecipe(@RequestBody RecipeInput input) {
-        var recipe = new Recipe();
-        recipe.setName(input.getName());
-        recipe.setDescription(input.getDescription());
-        recipe.setPortion(input.getPortion());
-        recipe.setTimeComplexity(input.getTimeComplexity());
+        var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity());
         var ingredients = new HashMap<Ingredient, Integer>();
 
         input.getIngredients().forEach((k, v) -> ingredients.put(ingredientRepository.findById(k)
@@ -40,5 +38,14 @@ public class RecipeController {
         recipe.setIngredients(ingredients);
 
         recipeRepository.save(recipe);
+    }
+
+    /**
+     * Gets all recipes sorted by newest
+     * @return List of recipes
+     */
+    @GetMapping("/recipe")
+    public final List<Recipe> getRecipesSortedByDate() {
+        return recipeRepository.findAllSortNewest();
     }
 }

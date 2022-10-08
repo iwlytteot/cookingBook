@@ -18,7 +18,7 @@ public class IngredientController {
      * Adds new ingredient
      * @param input User's input
      */
-    @PostMapping("/ingredient/add")
+    @PostMapping("/ingredient")
     public final void addIngredient(@RequestBody Ingredient input) {
         ingredientRepository.save(input);
     }

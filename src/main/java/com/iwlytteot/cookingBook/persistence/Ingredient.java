@@ -1,17 +1,30 @@
 package com.iwlytteot.cookingBook.persistence;
 
-import com.iwlytteot.cookingBook.model.IngredientBase;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-public class Ingredient extends IngredientBase {
+@Data
+public class Ingredient {
+    public Ingredient() {
+    }
+
+    public Ingredient(String name, int weight) {
+        this.name = name;
+        this.weight = weight;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    /**
+     * Name of product
+     */
+    private String name;
+
+    /**
+     * Weight per unit
+     */
+    private int weight;
 }

@@ -16,6 +16,12 @@ import java.util.Map;
 @Getter
 @Setter
 public class Recipe extends RecipeBase {
+    public Recipe() {}
+
+    public Recipe(String name, String description, int portion, TimeComplexity timeComplexity) {
+        super(name, description, portion, timeComplexity);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,10 +33,6 @@ public class Recipe extends RecipeBase {
     @MapKeyJoinColumn(name = "ingredient_id", referencedColumnName = "id")
     @Column(name = "count")
     private Map<Ingredient, Integer> ingredients = new HashMap<>();
-
-    public void addIngredient(Ingredient ingredient, Integer count) {
-        ingredients.put(ingredient, count);
-    }
 
     //private byte[] image; TODO
 }
