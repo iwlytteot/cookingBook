@@ -6,15 +6,14 @@ import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.persistence.Recipe;
 import com.iwlytteot.cookingBook.repository.IngredientRepository;
 import com.iwlytteot.cookingBook.repository.RecipeRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
@@ -44,7 +43,9 @@ public class RecipeController {
      * Gets all recipes sorted by newest
      * @return List of recipes
      */
-    @GetMapping("/recipe")
+    @GetMapping(
+            value = "/recipe",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<Recipe> getRecipesSortedByDate() {
         return recipeRepository.findAllSortNewest();
     }
