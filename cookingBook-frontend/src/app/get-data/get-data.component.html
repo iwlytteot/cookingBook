@@ -1,0 +1,21 @@
+<button type="button" (click)="onGetIngredients()">Fetch ingredients from database</button>
+<button type="button" (click)="onGetRecipes()">Fetch recipes from database</button>
+
+<ul>
+  <li *ngFor="let ingredient of ingredients">
+      <span>{{ingredient.id}}, {{ingredient.name}}, {{ingredient.weight}}</span>
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let recipe of recipes">
+    <span>{{recipe.id}}, {{recipe.name}}, {{recipe.portion}}, {{recipe.timeComplexity.baseEstimate}},
+      {{recipe.timeComplexity.additionalEstimate}}, {{recipe.createTime}},
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients | keyvalue">
+              <span>{{ingredient.key}}, {{ingredient.value}}</span>
+          </li>
+        </ul>
+    </span>
+  </li>
+</ul>
