@@ -80,4 +80,16 @@ public class RecipeController {
 
         recipeRepository.save(recipe);
     }
+
+    /**
+     * Deletes recipe
+     * @param id of Recipe
+     */
+    @DeleteMapping(value = "/recipe/{id}")
+    public final void deleteRecipe(@PathVariable Long id) {
+        var recipe = recipeRepository.findById(id).orElseThrow(() ->
+                new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
+
+        recipeRepository.delete(recipe);
+    }
 }
