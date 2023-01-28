@@ -1,6 +1,7 @@
 package com.iwlytteot.cookingBook.controller;
 
 import com.iwlytteot.cookingBook.exception.IngredientNotFoundException;
+import com.iwlytteot.cookingBook.model.IngredientUpdateDTO;
 import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.repository.IngredientRepository;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,14 @@ public class IngredientController {
     @GetMapping("/ingredient")
     public final List<Ingredient> getIngredients() {
         return ingredientRepository.findAll();
+    }
+
+    @PutMapping("ingredient/{id}")
+    public final Ingredient updateIngredient(@PathVariable Long id, @RequestBody IngredientUpdateDTO input) {
+        var ingredient = ingredientRepository.findById(id)
+                .orElseThrow(() -> new IngredientNotFoundException("Not found"));
+        ingredient.setName(input.getName());
+        ingredient.setWeight(input.getWeight());
+        return ingredientRepository.save(ingredient);
     }
 }
