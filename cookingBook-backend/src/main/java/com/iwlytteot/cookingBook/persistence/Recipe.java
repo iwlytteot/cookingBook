@@ -1,5 +1,6 @@
 package com.iwlytteot.cookingBook.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iwlytteot.cookingBook.model.RecipeBase;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +33,7 @@ public class Recipe extends RecipeBase {
             joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
     @MapKeyJoinColumn(name = "ingredient_id", referencedColumnName = "id")
     @Column(name = "count")
+    @JsonIgnore
     private Map<Ingredient, Integer> ingredients = new HashMap<>();
 
     //private byte[] image; TODO

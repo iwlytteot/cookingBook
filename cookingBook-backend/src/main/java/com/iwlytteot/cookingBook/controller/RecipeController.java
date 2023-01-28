@@ -1,6 +1,8 @@
 package com.iwlytteot.cookingBook.controller;
 
 import com.iwlytteot.cookingBook.exception.IngredientNotFoundException;
+import com.iwlytteot.cookingBook.exception.RecipeNotFoundException;
+import com.iwlytteot.cookingBook.model.IngredientWithCount;
 import com.iwlytteot.cookingBook.model.RecipeInput;
 import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.persistence.Recipe;
@@ -9,6 +11,7 @@ import com.iwlytteot.cookingBook.repository.RecipeRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,9 +47,18 @@ public class RecipeController {
      * @return List of recipes
      */
     @GetMapping(
-            value = "/recipe",
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            value = "/recipe")
     public final List<Recipe> getRecipesSortedByDate() {
         return recipeRepository.findAllSortNewest();
+    }
+
+    @GetMapping(value = "/recipe/{id}/ingredients")
+    public final List<IngredientWithCount> getIngredients(@PathVariable Long id) {
+        var recipe = recipeRepository.findById(id).orElseThrow(() ->
+                new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
+
+        var result = new ArrayList<IngredientWithCount>();
+        recipe.getIngredients().forEach((k, v) -> result.add(new IngredientWithCount(k, v)));
+        return result;
     }
 }
