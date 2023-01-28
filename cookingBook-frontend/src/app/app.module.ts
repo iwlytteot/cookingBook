@@ -4,17 +4,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GetDataComponent } from './get-data/get-data.component';
+import { RecipeServiceComponent } from './recipe-service/recipe-service.component';
+import { IngredientServiceComponent } from './ingredient-service/ingredient-service.component';
+import { RecipeComponent } from './recipe/recipe.component';
+
+import {DataViewModule} from 'primeng/dataview';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GetDataComponent
+    RecipeServiceComponent,
+    IngredientServiceComponent,
+    RecipeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    DataViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]
