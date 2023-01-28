@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class IngredientWithCount {
+public class IngredientWithCountDTO {
     private Ingredient ingredient;
     private Integer count;
 }

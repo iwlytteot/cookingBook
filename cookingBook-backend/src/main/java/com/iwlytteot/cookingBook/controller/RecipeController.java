@@ -2,7 +2,7 @@ package com.iwlytteot.cookingBook.controller;
 
 import com.iwlytteot.cookingBook.exception.IngredientNotFoundException;
 import com.iwlytteot.cookingBook.exception.RecipeNotFoundException;
-import com.iwlytteot.cookingBook.model.IngredientWithCount;
+import com.iwlytteot.cookingBook.model.IngredientWithCountDTO;
 import com.iwlytteot.cookingBook.model.RecipeDTO;
 import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.persistence.Recipe;
@@ -57,12 +57,12 @@ public class RecipeController {
      * @return list of ingredients with quantity
      */
     @GetMapping(value = "/recipe/{id}/ingredient")
-    public final List<IngredientWithCount> getIngredients(@PathVariable Long id) {
+    public final List<IngredientWithCountDTO> getIngredients(@PathVariable Long id) {
         var recipe = recipeRepository.findById(id).orElseThrow(() ->
                 new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
 
-        var result = new ArrayList<IngredientWithCount>();
-        recipe.getIngredients().forEach((k, v) -> result.add(new IngredientWithCount(k, v)));
+        var result = new ArrayList<IngredientWithCountDTO>();
+        recipe.getIngredients().forEach((k, v) -> result.add(new IngredientWithCountDTO(k, v)));
         return result;
     }
 
@@ -71,7 +71,7 @@ public class RecipeController {
      * @param id of Recipe
      */
     @PutMapping(value = "/recipe/{id}/ingredient")
-    public final void upsertIngredient(@PathVariable Long id, @RequestBody IngredientWithCount input) {
+    public final void upsertIngredient(@PathVariable Long id, @RequestBody IngredientWithCountDTO input) {
         var recipe = recipeRepository.findById(id).orElseThrow(() ->
                 new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
         var ingredient = ingredientRepository.findById(input.getIngredient().getId()).orElseThrow(() ->
