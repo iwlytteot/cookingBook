@@ -51,7 +51,12 @@ public class RecipeController {
         return recipeRepository.findAllSortNewest();
     }
 
-    @GetMapping(value = "/recipe/{id}/ingredients")
+    /**
+     * Gets ingredients for a recipe
+     * @param id of Recipe
+     * @return list of ingredients with quantity
+     */
+    @GetMapping(value = "/recipe/{id}/ingredient")
     public final List<IngredientWithCount> getIngredients(@PathVariable Long id) {
         var recipe = recipeRepository.findById(id).orElseThrow(() ->
                 new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
@@ -59,5 +64,20 @@ public class RecipeController {
         var result = new ArrayList<IngredientWithCount>();
         recipe.getIngredients().forEach((k, v) -> result.add(new IngredientWithCount(k, v)));
         return result;
+    }
+
+    /**
+     * Adds or updates ingredient for a recipe
+     * @param id of Recipe
+     */
+    @PutMapping(value = "/recipe/{id}/ingredient")
+    public final void upsertIngredient(@PathVariable Long id, @RequestBody IngredientWithCount input) {
+        var recipe = recipeRepository.findById(id).orElseThrow(() ->
+                new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
+        var ingredient = ingredientRepository.findById(input.getIngredient().getId()).orElseThrow(() ->
+                new IngredientNotFoundException("Ingredient with ID " + input.getIngredient().getId() + " has not been found."));
+        recipe.getIngredients().put(ingredient, input.getCount());
+
+        recipeRepository.save(recipe);
     }
 }
