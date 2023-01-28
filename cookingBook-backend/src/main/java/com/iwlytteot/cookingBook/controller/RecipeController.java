@@ -3,12 +3,11 @@ package com.iwlytteot.cookingBook.controller;
 import com.iwlytteot.cookingBook.exception.IngredientNotFoundException;
 import com.iwlytteot.cookingBook.exception.RecipeNotFoundException;
 import com.iwlytteot.cookingBook.model.IngredientWithCount;
-import com.iwlytteot.cookingBook.model.RecipeInput;
+import com.iwlytteot.cookingBook.model.RecipeDTO;
 import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.persistence.Recipe;
 import com.iwlytteot.cookingBook.repository.IngredientRepository;
 import com.iwlytteot.cookingBook.repository.RecipeRepository;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class RecipeController {
      * @param input User's input
      */
     @PostMapping("/recipe")
-    public final void addRecipe(@RequestBody RecipeInput input) {
+    public final void addRecipe(@RequestBody RecipeDTO input) {
         var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity());
         var ingredients = new HashMap<Ingredient, Integer>();
 

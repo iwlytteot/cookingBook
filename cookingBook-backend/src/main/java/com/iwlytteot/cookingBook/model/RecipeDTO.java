@@ -11,8 +11,8 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class RecipeInput extends RecipeBase{
-    public RecipeInput(String name, String description, int portion, TimeComplexity timeComplexity) {
+public class RecipeDTO extends RecipeBase{
+    public RecipeDTO(String name, String description, int portion, TimeComplexity timeComplexity) {
         super(name, description, portion, timeComplexity);
     }
 
