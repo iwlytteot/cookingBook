@@ -5,6 +5,7 @@ import com.iwlytteot.cookingBook.model.RecipeBase;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class Recipe extends RecipeBase {
     public Recipe() {}
 
-    public Recipe(String name, String description, int portion, TimeComplexity timeComplexity) {
+    public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity) {
         super(name, description, portion, timeComplexity);
     }
 
@@ -36,5 +37,9 @@ public class Recipe extends RecipeBase {
     @JsonIgnore
     private Map<Ingredient, Integer> ingredients = new HashMap<>();
 
-    //private byte[] image; TODO
+    /**
+     * ID of image, that is saved on cloud
+     */
+    @Nullable
+    private String imageId;
 }

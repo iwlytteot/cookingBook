@@ -24,7 +24,7 @@ public class RecipeBase {
      */
     @Lob
     private String description;
-    private int portion = 1;
+    private Integer portion = 1;
     @Embedded
     private TimeComplexity timeComplexity;
     private final Instant createTime = Instant.now();

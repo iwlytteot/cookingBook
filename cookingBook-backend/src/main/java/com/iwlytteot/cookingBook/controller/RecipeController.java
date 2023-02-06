@@ -8,22 +8,22 @@ import com.iwlytteot.cookingBook.persistence.Ingredient;
 import com.iwlytteot.cookingBook.persistence.Recipe;
 import com.iwlytteot.cookingBook.repository.IngredientRepository;
 import com.iwlytteot.cookingBook.repository.RecipeRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
-
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
-        this.recipeRepository = recipeRepository;
-        this.ingredientRepository = ingredientRepository;
-    }
+    private final CloudController cloudController;
 
     /**
      * Adds new recipe with ingredients
@@ -41,12 +41,20 @@ public class RecipeController {
         recipeRepository.save(recipe);
     }
 
+    @PostMapping("/recipe/{id}/image")
+    public final void addImage(@PathVariable Long id, @RequestParam("img") MultipartFile image) throws IOException {
+        var imageId = cloudController.uploadFile(image);
+        var recipe = recipeRepository.findById(id).orElseThrow(() ->
+                new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
+        recipe.setImageId(imageId);
+        recipeRepository.save(recipe);
+    }
+
     /**
      * Gets all recipes sorted by newest
      * @return List of recipes
      */
-    @GetMapping(
-            value = "/recipe")
+    @GetMapping("/recipe")
     public final List<Recipe> getRecipesSortedByDate() {
         return recipeRepository.findAllSortNewest();
     }
@@ -56,7 +64,7 @@ public class RecipeController {
      * @param id of Recipe
      * @return list of ingredients with quantity
      */
-    @GetMapping(value = "/recipe/{id}/ingredient")
+    @GetMapping("/recipe/{id}/ingredient")
     public final List<IngredientWithCountDTO> getIngredients(@PathVariable Long id) {
         var recipe = recipeRepository.findById(id).orElseThrow(() ->
                 new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
@@ -70,7 +78,7 @@ public class RecipeController {
      * Adds or updates ingredient for a recipe
      * @param id of Recipe
      */
-    @PutMapping(value = "/recipe/{id}/ingredient")
+    @PutMapping("/recipe/{id}/ingredient")
     public final void upsertIngredient(@PathVariable Long id, @RequestBody IngredientWithCountDTO input) {
         var recipe = recipeRepository.findById(id).orElseThrow(() ->
                 new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));
@@ -85,7 +93,7 @@ public class RecipeController {
      * Deletes recipe
      * @param id of Recipe
      */
-    @DeleteMapping(value = "/recipe/{id}")
+    @DeleteMapping("/recipe/{id}")
     public final void deleteRecipe(@PathVariable Long id) {
         var recipe = recipeRepository.findById(id).orElseThrow(() ->
                 new RecipeNotFoundException("Recipe with ID " + id + " has not been found."));

@@ -12,7 +12,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class RecipeDTO extends RecipeBase{
-    public RecipeDTO(String name, String description, int portion, TimeComplexity timeComplexity) {
+    public RecipeDTO(String name, String description, Integer portion, TimeComplexity timeComplexity) {
         super(name, description, portion, timeComplexity);
     }
 
