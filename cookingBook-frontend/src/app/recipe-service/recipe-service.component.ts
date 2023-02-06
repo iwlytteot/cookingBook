@@ -1,6 +1,5 @@
 import {Component, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {DataViewModule} from 'primeng/dataview';
 import {Recipe} from "../model/recipe";
 
 @Injectable({

@@ -5,4 +5,5 @@ export interface Recipe {
   portion: number;
   timeComplexity: { baseEstimate: string; additionalEstimate: string; }
   createTime: string;
+  imageId: string;
 }

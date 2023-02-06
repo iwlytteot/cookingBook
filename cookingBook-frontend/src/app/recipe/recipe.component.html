@@ -1,2 +1,22 @@
-{{recipes | json}}
-
+<p-dataView #dv [value]="recipes" [paginator]="true" [rows]="9" layout="grid">
+  <ng-template let-product pTemplate="gridItem">
+    <div class="col-12 md:col-4">
+      <div class="product-grid-item card">
+        <div class="product-grid-item-top">
+          <div>
+            <i class="pi pi-user product-category-icon"></i>
+            <span class="product-category">{{product.portion}}</span>
+          </div>
+        </div>
+        <div class="product-grid-item-content">
+          <img [src]="'https://drive.google.com/uc?id=' + product.imageId" [alt]="product.name"/>
+          <div class="product-name">{{product.name}}</div>
+          <div class="product-description">{{product.description}}</div>
+        </div>
+        <div class="product-grid-item-bottom">
+          <span class="product-price">{{product.timeComplexity.baseEstimate}} ± {{product.timeComplexity.additionalEstimate}}</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dataView>
