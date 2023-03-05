@@ -8,8 +8,6 @@ import com.iwlytteot.cookingBook.repository.RecipeRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalTime;
-
 @RestController
 public class InitDataController {
     private final IngredientRepository ingredientRepository;
@@ -27,14 +25,14 @@ public class InitDataController {
         var ingredient3 = ingredientRepository.save(new Ingredient("Bread", 200));
 
         var recipe = new Recipe("Pancake", "The best food", 2,
-                new TimeComplexity(LocalTime.of(1, 0), LocalTime.of(0, 5)));
+                new TimeComplexity("1h", "5m"));
         var ingredients = recipe.getIngredients();
         ingredients.put(ingredient, 300);
         ingredients.put(ingredient2, 2);
         recipeRepository.save(recipe);
 
         recipe = new Recipe("Bread with eggs", "The second best food", 1,
-                new TimeComplexity(LocalTime.of(0, 15), LocalTime.of(0, 5)));
+                new TimeComplexity("1h", "5m"));
         ingredients = recipe.getIngredients();
         ingredients.put(ingredient2, 2);
         ingredients.put(ingredient3, 1);
