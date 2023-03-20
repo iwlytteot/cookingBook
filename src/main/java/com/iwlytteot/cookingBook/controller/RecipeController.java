@@ -41,6 +41,12 @@ public class RecipeController {
         recipeRepository.save(recipe);
     }
 
+    /**
+     * Uploads new image of a recipe
+     * @param id ID of recipe
+     * @param image Multipart File as image
+     * @throws IOException throws if there was a problem with uploading image
+     */
     @PostMapping("/recipe/{id}/image")
     public final void addImage(@PathVariable Long id, @RequestParam("img") MultipartFile image) throws IOException {
         var imageId = cloudController.uploadFile(image);
