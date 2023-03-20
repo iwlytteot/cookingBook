@@ -31,7 +31,8 @@ public class RecipeController {
      */
     @PostMapping("/recipe")
     public final void addRecipe(@RequestBody RecipeDTO input) {
-        var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity());
+        var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity(),
+                input.getInstructions());
         var ingredients = new HashMap<Ingredient, Integer>();
 
         input.getIngredients().forEach((k, v) -> ingredients.put(ingredientRepository.findById(k)

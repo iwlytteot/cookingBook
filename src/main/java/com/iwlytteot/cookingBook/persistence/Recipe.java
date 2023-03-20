@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,10 +19,11 @@ import java.util.Map;
 @Getter
 @Setter
 public class Recipe extends RecipeBase {
-    public Recipe() {}
+    public Recipe() {
+    }
 
-    public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity) {
-        super(name, description, portion, timeComplexity);
+    public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity, List<String> instructions) {
+        super(name, description, portion, timeComplexity, instructions);
     }
 
     @Id
