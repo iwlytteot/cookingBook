@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents user's input when creating new recipe.
@@ -18,5 +17,5 @@ public class RecipeDTO extends RecipeBase{
         super(name, description, portion, timeComplexity, instructions);
     }
 
-    private Map<Long, Integer> ingredients;
+    private List<IngredientWithCountDTO> ingredients;
 }

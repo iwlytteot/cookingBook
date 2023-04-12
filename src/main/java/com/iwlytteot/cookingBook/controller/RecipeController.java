@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
 @AllArgsConstructor
 public class RecipeController {
     private final RecipeRepository recipeRepository;
@@ -35,8 +35,9 @@ public class RecipeController {
                 input.getInstructions());
         var ingredients = new HashMap<Ingredient, Integer>();
 
-        input.getIngredients().forEach((k, v) -> ingredients.put(ingredientRepository.findById(k)
-                .orElseThrow(() -> new IngredientNotFoundException("Ingredient with ID " + k + " has not been found!")), v));
+        input.getIngredients().forEach(v -> ingredients.put(ingredientRepository.findById(v.getIngredient().getId())
+                .orElseThrow(() -> new IngredientNotFoundException("Ingredient with ID " + v.getIngredient().getId() +
+                        " has not been found!")), v.getCount()));
         recipe.setIngredients(ingredients);
 
         recipeRepository.save(recipe);
