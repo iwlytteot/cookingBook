@@ -30,7 +30,7 @@ public class RecipeController {
      * @param input User's input
      */
     @PostMapping("/recipe")
-    public final void addRecipe(@RequestBody RecipeDTO input) {
+    public final Long addRecipe(@RequestBody RecipeDTO input) {
         var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity(),
                 input.getInstructions());
         var ingredients = new HashMap<Ingredient, Integer>();
@@ -40,7 +40,7 @@ public class RecipeController {
                         " has not been found!")), v.getCount()));
         recipe.setIngredients(ingredients);
 
-        recipeRepository.save(recipe);
+        return recipeRepository.save(recipe).getId();
     }
 
     /**
