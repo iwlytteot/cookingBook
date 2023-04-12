@@ -43,5 +43,5 @@ public class Recipe extends RecipeBase {
      * ID of image, that is saved on cloud
      */
     @Nullable
-    private String imageId;
+    private String imageId = "1_RF-4vMresQpylzTnrA2m9UIWmw4sTvX";
 }
