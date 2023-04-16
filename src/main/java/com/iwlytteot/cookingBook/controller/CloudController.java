@@ -77,6 +77,8 @@ public class CloudController {
             return file.getId();
         } catch (GoogleJsonResponseException ex) {
             throw new ImageProcessingException("File upload error: " + ex.getMessage());
+        } finally {
+            tempFile.delete();
         }
     }
 }
