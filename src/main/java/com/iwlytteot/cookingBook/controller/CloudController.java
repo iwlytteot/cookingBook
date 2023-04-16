@@ -15,7 +15,6 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +29,7 @@ public class CloudController {
 
     public CloudController() {
         try {
-            credential = GoogleCredentials.fromStream(new FileInputStream("censored"))
+            credential = GoogleCredentials.fromStream(CloudController.class.getResourceAsStream("/credentials.json"))
                     .createScoped(Collections.singleton("https://www.googleapis.com/auth/drive"));
 
             credential.refresh();
