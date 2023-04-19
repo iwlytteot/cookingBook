@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
+@CrossOrigin
 @AllArgsConstructor
 public class RecipeController {
     private final RecipeRepository recipeRepository;

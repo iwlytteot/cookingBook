@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class IngredientController {
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
