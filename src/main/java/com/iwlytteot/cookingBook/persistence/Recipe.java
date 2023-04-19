@@ -1,15 +1,13 @@
 package com.iwlytteot.cookingBook.persistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iwlytteot.cookingBook.model.RecipeBase;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents cooking recipe. Holds the data needed to cook food.
@@ -22,8 +20,10 @@ public class Recipe extends RecipeBase {
     public Recipe() {
     }
 
-    public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity, List<String> instructions) {
+    public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity, List<String> instructions,
+                  List<IngredientWithCount> ingredients) {
         super(name, description, portion, timeComplexity, instructions);
+        this.ingredients = ingredients;
     }
 
     @Id
@@ -31,13 +31,8 @@ public class Recipe extends RecipeBase {
     @Column(name = "id")
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "recipe_and_ingredients",
-            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
-    @MapKeyJoinColumn(name = "ingredient_id", referencedColumnName = "id")
-    @Column(name = "count")
-    @JsonIgnore
-    private Map<Ingredient, Integer> ingredients = new HashMap<>();
+    @OneToMany
+    private List<IngredientWithCount> ingredients = new ArrayList<>();
 
     /**
      * ID of image, that is saved on cloud

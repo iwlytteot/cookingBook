@@ -12,9 +12,8 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(String name, int weight) {
+    public Ingredient(String name) {
         this.name = name;
-        this.weight = weight;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +23,4 @@ public class Ingredient {
      * Name of product
      */
     private String name;
-
-    /**
-     * Weight per unit
-     */
-    private int weight;
 }

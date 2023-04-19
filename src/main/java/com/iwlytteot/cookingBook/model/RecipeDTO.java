@@ -1,5 +1,6 @@
 package com.iwlytteot.cookingBook.model;
 
+import com.iwlytteot.cookingBook.persistence.IngredientWithCount;
 import com.iwlytteot.cookingBook.persistence.TimeComplexity;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +18,5 @@ public class RecipeDTO extends RecipeBase{
         super(name, description, portion, timeComplexity, instructions);
     }
 
-    private List<IngredientWithCountDTO> ingredients;
+    private List<IngredientWithCount> ingredients;
 }
