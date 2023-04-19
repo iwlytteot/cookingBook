@@ -6,12 +6,14 @@ import com.iwlytteot.cookingBook.model.RecipeDTO;
 import com.iwlytteot.cookingBook.persistence.IngredientWithCount;
 import com.iwlytteot.cookingBook.persistence.Recipe;
 import com.iwlytteot.cookingBook.repository.IngredientRepository;
+import com.iwlytteot.cookingBook.repository.IngredientWithCountRepository;
 import com.iwlytteot.cookingBook.repository.RecipeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,6 +22,7 @@ import java.util.List;
 public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
+    private final IngredientWithCountRepository ingredientWithCountRepository;
     private final CloudController cloudController;
 
     /**
@@ -28,8 +31,10 @@ public class RecipeController {
      */
     @PostMapping("/recipe")
     public final Long addRecipe(@RequestBody RecipeDTO input) {
+        var ingredients = new ArrayList<IngredientWithCount>();
+        input.getIngredients().forEach(ingredient -> ingredients.add(ingredientWithCountRepository.save(ingredient)));
         var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity(),
-                input.getInstructions(), input.getIngredients());
+                input.getInstructions(), ingredients);
 
         return recipeRepository.save(recipe).getId();
     }
