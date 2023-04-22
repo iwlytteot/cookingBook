@@ -35,12 +35,12 @@ public class InitDataController {
 
         var recipe = new Recipe("Pancake", "The best food", 2,
                 new TimeComplexity("1h", "5m"),
-                List.of("Prepare eggs and sugar", "Put it on skillet"), List.of(ingredientWithCount1));
+                List.of("Prepare eggs and sugar", "Put it on skillet"), List.of(ingredientWithCount1), 5);
         recipeRepository.save(recipe);
 
         recipe = new Recipe("Bread with eggs", "The second best food", 1,
                 new TimeComplexity("1h", "5m"), List.of("Add eggs to skillet", "Put eggs on bread"),
-                List.of(ingredientWithCount2));
+                List.of(ingredientWithCount2), 4);
         recipeRepository.save(recipe);
     }
 }

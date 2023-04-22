@@ -34,7 +34,7 @@ public class RecipeController {
         var ingredients = new ArrayList<IngredientWithCount>();
         input.getIngredients().forEach(ingredient -> ingredients.add(ingredientWithCountRepository.save(ingredient)));
         var recipe = new Recipe(input.getName(), input.getDescription(), input.getPortion(), input.getTimeComplexity(),
-                input.getInstructions(), ingredients);
+                input.getInstructions(), ingredients, input.getHamiMeter());
 
         return recipeRepository.save(recipe).getId();
     }

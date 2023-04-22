@@ -20,8 +20,8 @@ public class Recipe extends RecipeBase {
     }
 
     public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity, List<String> instructions,
-                  List<IngredientWithCount> ingredients) {
-        super(name, description, portion, timeComplexity, instructions, ingredients);
+                  List<IngredientWithCount> ingredients, Integer hamiMeter) {
+        super(name, description, portion, timeComplexity, instructions, ingredients, hamiMeter);
     }
 
     @Id

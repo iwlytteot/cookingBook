@@ -35,5 +35,6 @@ public class RecipeBase {
     private List<String> instructions;
     @OneToMany
     private List<IngredientWithCount> ingredients;
+    private Integer hamiMeter = 1;
 
 }
