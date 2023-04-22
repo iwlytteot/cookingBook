@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,17 +21,13 @@ public class Recipe extends RecipeBase {
 
     public Recipe(String name, String description, Integer portion, TimeComplexity timeComplexity, List<String> instructions,
                   List<IngredientWithCount> ingredients) {
-        super(name, description, portion, timeComplexity, instructions);
-        this.ingredients = ingredients;
+        super(name, description, portion, timeComplexity, instructions, ingredients);
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @OneToMany
-    private List<IngredientWithCount> ingredients = new ArrayList<>();
 
     /**
      * ID of image, that is saved on cloud

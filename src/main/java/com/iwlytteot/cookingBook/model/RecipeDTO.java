@@ -14,9 +14,8 @@ import java.util.List;
 @Setter
 public class RecipeDTO extends RecipeBase{
     public RecipeDTO(String name, String description, Integer portion, TimeComplexity timeComplexity,
-                     List<String> instructions) {
-        super(name, description, portion, timeComplexity, instructions);
+                     List<String> instructions, List<IngredientWithCount> ingredients) {
+        super(name, description, portion, timeComplexity, instructions, ingredients);
     }
 
-    private List<IngredientWithCount> ingredients;
 }

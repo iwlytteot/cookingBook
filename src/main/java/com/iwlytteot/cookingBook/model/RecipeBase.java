@@ -1,13 +1,11 @@
 package com.iwlytteot.cookingBook.model;
 
+import com.iwlytteot.cookingBook.persistence.IngredientWithCount;
 import com.iwlytteot.cookingBook.persistence.TimeComplexity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Lob;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
 
@@ -35,4 +33,7 @@ public class RecipeBase {
      */
     @ElementCollection
     private List<String> instructions;
+    @OneToMany
+    private List<IngredientWithCount> ingredients;
+
 }
