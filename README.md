@@ -9,6 +9,7 @@ Endpoint documentation is available on /swagger-ui/index.html
 2) Maven
 
 ## How to set environment
-1) Edit application.properties
+1) Edit src/main/resources/application.properties *
+2) Create Google Drive Service account, create new key and store it in JSON format. Rename your JSON file into *credentials.json* and store it in src/main/resources
 
-Either use https://github.com/ulisesbocchio/jasypt-spring-boot for password encryption (recommended option) or put raw values into *spring.datasource.password*
+\* Either use https://github.com/ulisesbocchio/jasypt-spring-boot for password encryption (recommended option) or put raw values into *spring.datasource.password*
